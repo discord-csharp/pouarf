@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Pouarf.Models
 {
-    public class BaseModel
+    public class ContactInformationBase
     {
         public Guid Id { get; set; }
         public DateTimeOffset CreatedAt { get; set; }

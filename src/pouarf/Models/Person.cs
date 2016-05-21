@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Pouarf.Models
 {
-    public class Contact : BaseModel
+    public class Person : ContactInformationBase
     {
         [Required]
         public string FirstName { get; set; }
@@ -17,8 +15,8 @@ namespace Pouarf.Models
         [Required]
         public DateTimeOffset BirthDate { get; set; }
 
-        public virtual List<Address> Addresses { get; set; }
-        public virtual List<Email> Emails { get; set; }
-        public virtual List<Phone> Phones { get; set; }
+        public virtual ICollection<StreetAddress> StreetAddresses { get; set; }
+        public virtual ICollection<EmailAddress> EmailAddresses { get; set; }
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
     }
 }
