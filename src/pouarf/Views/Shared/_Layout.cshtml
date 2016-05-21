@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title | Pouarf</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" type="text/css" href="~/lib/tether/dist/css/tether.css" />
+        <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="~/lib/fontawesome/css/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    </environment>
+</head>
+<body ng-app="pouarf">
+    <nav></nav>
+    <main>@RenderBody()</main>
+    <footer></footer>
+
+    <environment names="Development">
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="~/lib/tether/dist/js/tether.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="~/lib/angular/angular.js"></script>
+        <script type="text/javascript" src="~/app/core/core.module.js"></script>
+        <script type="text/javascript" src="~/app/person/person.module.js"></script>
+        <script type="text/javascript" src="~/app/person/person.component.js"></script>
+    </environment>
+</body>
+</html>
