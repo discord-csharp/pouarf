@@ -23,6 +23,7 @@ namespace Pouarf.Helpers
                 {
                     new Person()
                     {
+                        Id = Guid.NewGuid(),
                         FirstName = "Delilah", LastName = "Ezekiel", BirthDate = DateTimeOffset.Now, CreatedAt = DateTimeOffset.Now, StreetAddresses = new List<StreetAddress>()
                         {
                             new StreetAddress() { Label="Home", Street = "654 Main Street", City = "Montreal", Country = "Canada"},
@@ -41,6 +42,7 @@ namespace Pouarf.Helpers
                     },
                     new Person()
                     {
+                        Id = Guid.NewGuid(),
                         FirstName = "Aileen", LastName = "Shana", BirthDate = DateTimeOffset.Now, CreatedAt = DateTimeOffset.Now, StreetAddresses = new List<StreetAddress>()
                         {
                             new StreetAddress() { Label="Home", Street = "987 Dumb Street", City = "Vancouver", Country = "Canada"},
@@ -59,6 +61,7 @@ namespace Pouarf.Helpers
                     },
                     new Person()
                     {
+                        Id = Guid.NewGuid(),
                         FirstName = "James", LastName = "Nadine", BirthDate = DateTimeOffset.Now, CreatedAt = DateTimeOffset.Now, StreetAddresses = new List<StreetAddress>()
                         {
                             new StreetAddress() { Label="Home", Street = "123 Main Street", City = "Montreal", Country = "Canada"},
