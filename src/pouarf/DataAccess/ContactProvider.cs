@@ -54,12 +54,12 @@ namespace Pouarf.DataAccess
 
         public async Task<IEnumerable<Person>> GetPeople(bool includeRelationships = false)
         {
-            var people = _dbContext.People;
-
+            IQueryable<Person> people = _dbContext.People;
             if (includeRelationships)
             {
-                people.Include(p => p.PhoneNumbers)
+                people = people
                     .Include(p => p.EmailAddresses)
+                    .Include(p => p.PhoneNumbers)
                     .Include(p => p.StreetAddresses);
             }
 
