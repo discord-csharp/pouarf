@@ -44,7 +44,7 @@ namespace Pouarf.DataAccess
 
         public async Task<EmailAddress> GetEmailAddress(Guid id)
         {
-            return await _dbContext.EmailAddresses.FirstOrDefaultAsync(i => i.Id.Equals(id));
+            return await _dbContext.EmailAddresses.FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
         public async Task<IEnumerable<EmailAddress>> GetEmailAddresses()
@@ -68,12 +68,12 @@ namespace Pouarf.DataAccess
 
         public async Task<Person> GetPerson(Guid id, bool includeRelationships = false)
         {
-            var people = _dbContext.People;
-
+            IQueryable<Person> people = _dbContext.People;
             if (includeRelationships)
             {
-                people.Include(p => p.PhoneNumbers)
+                people = people
                     .Include(p => p.EmailAddresses)
+                    .Include(p => p.PhoneNumbers)
                     .Include(p => p.StreetAddresses);
             }
 
