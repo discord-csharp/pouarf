@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Pouarf.DataAccess;
 using Pouarf.Helpers;
+using System.Threading.Tasks;
 
 namespace Pouarf
 {
@@ -11,26 +12,22 @@ namespace Pouarf
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PouarfDBContext>(options => options.UseInMemoryDatabase());
-            services.AddSingleton<IRepository, GenericRepository>();
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<SampleData>();
-            
             services.AddMvc();
-            
-        }
-        
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SampleData sampleData)
-        {            
 
-            
-            if(env.IsDevelopment())
+            services.AddDbContext<PouarfDbContext>(options => options.UseInMemoryDatabase());
+            services.AddScoped<IContactProvider, ContactProvider>();
+            services.AddSingleton<MockPeople>();
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, MockPeople mockData)
+        {
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
-                sampleData.CreateSampleData();
+
+                Task.Run(async () => await mockData.CreateSampleData());
             }
-            
+
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
         }

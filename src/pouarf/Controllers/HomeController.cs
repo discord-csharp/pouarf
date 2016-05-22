@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Pouarf.DataAccess;
-using Pouarf.Models;
+using System.Threading.Tasks;
 
 namespace Pouarf.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository _repo;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IContactProvider _contactProvider;
 
-        public HomeController(IRepository repo, IUnitOfWork unitOfWork)
+        public HomeController(IContactProvider contactProvider)
         {
-            _repo = repo;
-            _unitOfWork = unitOfWork;                                   
+            _contactProvider = contactProvider;
         }
-        
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            var result = _repo.GetAll<Person>();
-            foreach (var p in result)
-            {
-                var x = p.FirstName;
-                var y = p.LastName;
-            }
-            
-            return View();
+            var peopleNoMapping = await _contactProvider.GetPeople();
+            var emails = await _contactProvider.GetEmailAddresses();
+            var phoneNumbers = await _contactProvider.GetPhoneNumbers();
+            var streetAddresses = await _contactProvider.GetStreetAddresses();
+
+            return View(new { peopleNoMapping, emails, phoneNumbers, streetAddresses });
         }
     }
 }
