@@ -19,22 +19,22 @@ namespace Pouarf.DataAccess
 
         public async Task AddEmailAddress(EmailAddress emailAddress)
         {
-            await Task.Run(() => _dbContext.Add(emailAddress));
+            await Task.Run(() => _dbContext.EmailAddresses.Add(emailAddress));
         }
 
         public async Task AddPerson(Person person)
         {
-            await Task.Run(() => _dbContext.Add(person));
+            await Task.Run(() => _dbContext.People.Add(person));
         }
 
         public async Task AddPhoneNumber(PhoneNumber phoneNumber)
         {
-            await Task.Run(() => _dbContext.Add(phoneNumber));
+            await Task.Run(() => _dbContext.PhoneNumbers.Add(phoneNumber));
         }
 
         public async Task AddStreetAddress(StreetAddress streetAddress)
         {
-            await Task.Run(() => _dbContext.Add(streetAddress));
+            await Task.Run(() => _dbContext.StreetAddresses.Add(streetAddress));
         }
 
         public async Task Commit()
