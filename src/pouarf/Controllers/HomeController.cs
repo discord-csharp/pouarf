@@ -30,6 +30,7 @@ namespace Pouarf.Controllers
 
             var toBeDelete = people.ElementAt(1);
             await _contactProvider.DeletePerson(toBeDelete.Id);
+            await _contactProvider.Commit();
 
             var newListOfPeople = await _contactProvider.GetPeople();
             var newListOfemails = await _contactProvider.GetEmailAddresses();
@@ -46,7 +47,7 @@ namespace Pouarf.Controllers
         }
 
         [Route("api/[action]")]
-        [HttpPost]        
+        [HttpPost]
         public async Task<IActionResult> People([FromBody] Person person)
         {
             if (person == null)
@@ -63,8 +64,8 @@ namespace Pouarf.Controllers
             else
             {
                 return BadRequest(ModelState);
-            }            
+            }
         }
-        
+
     }
 }

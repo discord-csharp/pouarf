@@ -26,7 +26,7 @@ namespace Pouarf.DataAccess
         {
             await Task.Run(() => _dbContext.People.Add(person));
         }
-        
+
         public async Task AddPhoneNumber(PhoneNumber phoneNumber)
         {
             await Task.Run(() => _dbContext.PhoneNumbers.Add(phoneNumber));
@@ -46,7 +46,6 @@ namespace Pouarf.DataAccess
         {
             var emailAddress = await GetEmailAddress(id);
             await Task.Run(() => _dbContext.EmailAddresses.Remove(emailAddress));
-            await Commit();
         }
 
         public async Task DeletePerson(Guid id)
@@ -72,21 +71,18 @@ namespace Pouarf.DataAccess
             }
 
             await Task.Run(() => _dbContext.People.Remove(person));
-            await Commit();
         }
 
         public async Task DeletePhoneNumber(Guid id)
         {
             var phoneNumber = await GetPhoneNumber(id);
             await Task.Run(() => _dbContext.PhoneNumbers.Remove(phoneNumber));
-            await Commit();
         }
 
         public async Task DeleteStreetAddress(Guid id)
         {
             var streetAddress = await GetStreetAddress(id);
             await Task.Run(() => _dbContext.StreetAddresses.Remove(streetAddress));
-            await Commit();
         }
 
         public async Task<EmailAddress> GetEmailAddress(Guid id)
