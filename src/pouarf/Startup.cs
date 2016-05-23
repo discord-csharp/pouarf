@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pouarf.DataAccess;
 using Pouarf.Helpers;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
 
 namespace Pouarf
 {
@@ -12,7 +13,10 @@ namespace Pouarf
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddDbContext<PouarfDbContext>(options => options.UseInMemoryDatabase());
             services.AddScoped<IContactProvider, ContactProvider>();
