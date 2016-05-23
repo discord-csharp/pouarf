@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pouarf.DataAccess;
 using Pouarf.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -26,6 +27,14 @@ namespace Pouarf.Controllers
             var phoneNumbers = await _contactProvider.GetPhoneNumbers();
             var streetAddresses = await _contactProvider.GetStreetAddresses();
             var peopleTwo = await _contactProvider.GetPeople();
+
+            var toBeDelete = people.ElementAt(1);
+            await _contactProvider.DeletePerson(toBeDelete.Id);
+
+            var newListOfPeople = await _contactProvider.GetPeople();
+            var newListOfemails = await _contactProvider.GetEmailAddresses();
+            var newListOfphoneNumbers = await _contactProvider.GetPhoneNumbers();
+            var newListOFstreetAddresses = await _contactProvider.GetStreetAddresses();
 
             return View(new { people, peopleTwo, emails, phoneNumbers, streetAddresses });
         }
