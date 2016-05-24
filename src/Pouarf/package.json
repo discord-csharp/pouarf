@@ -1,0 +1,16 @@
+{
+  "name": "Pouarf",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jshint wwwroot/app || true"
+  },
+  "keywords": [
+    "pouarf",
+    "address book"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jshint": "^2.9.2"
+  }
+}

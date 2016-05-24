@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "pouarf", "src\pouarf\pouarf.xproj", "{FD7DF443-E3A2-4715-8E0A-5A89FC7EBD79}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "pouarf", "src\pouarf\Pouarf.xproj", "{FD7DF443-E3A2-4715-8E0A-5A89FC7EBD79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
