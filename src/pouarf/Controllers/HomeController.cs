@@ -1,13 +1,10 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Pouarf.DataAccess;
 using Pouarf.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.Server.Kestrel.Networking;
 
 namespace Pouarf.Controllers
 {
@@ -41,6 +38,7 @@ namespace Pouarf.Controllers
         }
 
         [Route("api/[action]")]
+        [HttpGet]
         public async Task<IEnumerable<Person>> People()
         {
             return await _contactProvider.GetPeople(true);
@@ -48,7 +46,7 @@ namespace Pouarf.Controllers
 
         [Route("api/[action]")]
         [HttpPost]
-        public async Task<IActionResult> People([FromBody] Person person)
+        public async Task<IActionResult> Person([FromBody] Person person)
         {
             if (person == null)
             {
@@ -67,5 +65,19 @@ namespace Pouarf.Controllers
             }
         }
 
+        [Route("api/[action]")]
+        [HttpDelete]
+        public async Task<IActionResult> Person([FromBody] string guid)
+        {
+            Guid personId = Guid.Empty;
+            if(string.IsNullOrWhiteSpace(guid) || !Guid.TryParse(guid, out personId))
+            {
+                return BadRequest(new { Message = "The guid input is not in a correct format." });
+            }
+
+            var person = await _contactProvider.DeletePerson(personId);
+            await _contactProvider.Commit();
+            return Ok(person);
+        }
     }
 }

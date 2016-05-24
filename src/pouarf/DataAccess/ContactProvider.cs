@@ -42,47 +42,60 @@ namespace Pouarf.DataAccess
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteEmailAddress(Guid id)
+        public async Task<EmailAddress> DeleteEmailAddress(Guid id)
         {
             var emailAddress = await GetEmailAddress(id);
             await Task.Run(() => _dbContext.EmailAddresses.Remove(emailAddress));
+            return emailAddress;
         }
 
-        public async Task DeletePerson(Guid id)
+        public async Task<Person> DeletePerson(Guid id)
         {
-            var person = await GetPerson(id);
+            var person = await GetPerson(id, true);
 
-            foreach (var phoneNumber in person.PhoneNumbers)
+            if (person.PhoneNumbers != null && person.PhoneNumbers.Any())
             {
-                var phone = await GetPhoneNumber(phoneNumber.Id);
-                await Task.Run(() => _dbContext.PhoneNumbers.Remove(phone));
+                foreach (var phoneNumber in person.PhoneNumbers)
+                {
+                    var phone = await GetPhoneNumber(phoneNumber.Id);
+                    await Task.Run(() => _dbContext.PhoneNumbers.Remove(phone));
+                }
             }
 
-            foreach (var emailAdress in person.EmailAddresses)
+            if (person.EmailAddresses != null && person.EmailAddresses.Any())
             {
-                var email = await GetEmailAddress(emailAdress.Id);
-                await Task.Run(() => _dbContext.EmailAddresses.Remove(email));
+                foreach (var emailAdress in person.EmailAddresses)
+                {
+                    var email = await GetEmailAddress(emailAdress.Id);
+                    await Task.Run(() => _dbContext.EmailAddresses.Remove(email));
+                }
             }
 
-            foreach (var streetAddress in person.StreetAddresses)
+            if (person.StreetAddresses != null && person.StreetAddresses.Any())
             {
-                var street = await GetStreetAddress(streetAddress.Id);
-                await Task.Run(() => _dbContext.StreetAddresses.Remove(street));
+                foreach (var streetAddress in person.StreetAddresses)
+                {
+                    var street = await GetStreetAddress(streetAddress.Id);
+                    await Task.Run(() => _dbContext.StreetAddresses.Remove(street));
+                }
             }
 
             await Task.Run(() => _dbContext.People.Remove(person));
+            return person;
         }
 
-        public async Task DeletePhoneNumber(Guid id)
+        public async Task<PhoneNumber> DeletePhoneNumber(Guid id)
         {
             var phoneNumber = await GetPhoneNumber(id);
             await Task.Run(() => _dbContext.PhoneNumbers.Remove(phoneNumber));
+            return phoneNumber;
         }
 
-        public async Task DeleteStreetAddress(Guid id)
+        public async Task<StreetAddress> DeleteStreetAddress(Guid id)
         {
             var streetAddress = await GetStreetAddress(id);
             await Task.Run(() => _dbContext.StreetAddresses.Remove(streetAddress));
+            return streetAddress;
         }
 
         public async Task<EmailAddress> GetEmailAddress(Guid id)
