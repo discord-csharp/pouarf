@@ -1,7 +1,10 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('pouarf', [
+    var module = appangular.module('pouarf', [
+        'ngComponentRouter',
         'pouarf.person'
     ]);
+
+    module.value('$routerRootComponent', 'pouarfApp');
 })();
