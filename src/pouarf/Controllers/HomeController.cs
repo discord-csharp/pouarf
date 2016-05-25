@@ -24,7 +24,7 @@ namespace Pouarf.Controllers
             var phoneNumbers = await _contactProvider.GetPhoneNumbers();
             var streetAddresses = await _contactProvider.GetStreetAddresses();
             var peopleTwo = await _contactProvider.GetPeople();
-
+            
             var toBeDelete = people.ElementAt(1);
             await _contactProvider.DeletePerson(toBeDelete.Id);
             await _contactProvider.Commit();
@@ -33,6 +33,13 @@ namespace Pouarf.Controllers
             var newListOfemails = await _contactProvider.GetEmailAddresses();
             var newListOfphoneNumbers = await _contactProvider.GetPhoneNumbers();
             var newListOFstreetAddresses = await _contactProvider.GetStreetAddresses();
+
+            var toBeUpdate = await _contactProvider.GetPerson(people.ElementAt(2).Id);
+            toBeUpdate.LastName = "Updated last name";
+            await _contactProvider.UpdatePerson(toBeUpdate);
+            await _contactProvider.Commit();
+            var updatedPerson = await _contactProvider.GetPerson(toBeUpdate.Id);
+                        
 
             return View(new { people, peopleTwo, emails, phoneNumbers, streetAddresses });
         }

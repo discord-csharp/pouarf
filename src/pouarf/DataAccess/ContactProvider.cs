@@ -155,5 +155,27 @@ namespace Pouarf.DataAccess
         {
             return await _dbContext.StreetAddresses.ToListAsync();
         }
+
+        public async Task UpdateEmailAddress(EmailAddress emailAddress)
+        {            
+            await Task.Run(() => _dbContext.EmailAddresses.Update(emailAddress));
+        }
+
+        public async Task UpdatePerson(Person person)            
+        {
+            
+            await Task.Run(() => _dbContext.People.Update(person));
+        }
+
+        public async Task UpdatePhoneNumber(PhoneNumber phoneNumber)
+        {
+            await Task.Run(() => _dbContext.PhoneNumbers.Update(phoneNumber));
+        }
+
+        public async Task UpdateStreetAddress(StreetAddress streetAddress)
+        {
+            await Task.Run(() => _dbContext.StreetAddresses.Update(streetAddress));
+        }
+
     }
 }
