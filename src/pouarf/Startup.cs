@@ -32,7 +32,7 @@ namespace Pouarf
                 Task.Run(async () => await mockData.CreateSampleData());
             }
 
-            app.UseDefaultFiles("/wwwroot/app");
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
         }
